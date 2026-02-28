@@ -29,8 +29,12 @@ You can also adjust the configuration of individual instances by passing
 unexpected results. See `Customizing the Parser <customize.html>`_.
 """
 from __future__ import unicode_literals
-import collections
 import sys
+
+try:
+    from collections.abc import Set as AbstractSet
+except ImportError:  # pragma: no cover
+    from collections import Set as AbstractSet
 
 from nameparser.util import binary_type
 from nameparser.util import lc
@@ -43,7 +47,7 @@ from nameparser.config.titles import TITLES
 from nameparser.config.titles import FIRST_NAME_TITLES
 from nameparser.config.regexes import REGEXES
 
-class SetManager(collections.Set):
+class SetManager(AbstractSet):
     '''
     Easily add and remove config variables per module or instance. Subclass of
     ``collections.Set``.
