@@ -211,6 +211,7 @@ class InvWarehouseModel(DataModel):
         # ---------------------------------------------------------------------
         # Warehouses
         #
+        tablename = "inv_warehouse"
         # if settings.get_inv_warehouse_code_unique():
         code_requires = IS_EMPTY_OR([IS_LENGTH(10),
                                      IS_NOT_IN_DB(db, "%s.code" % tablename),
@@ -218,7 +219,6 @@ class InvWarehouseModel(DataModel):
         # else:
         #    code_requires = IS_LENGTH(10)
 
-        tablename = "inv_warehouse"
         define_table(tablename,
                      super_link("pe_id", "pr_pentity"),
                      super_link("site_id", "org_site"),
