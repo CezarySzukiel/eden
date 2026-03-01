@@ -4815,10 +4815,12 @@ def req_send_commit():
     db = current.db
     s3db = current.s3db
 
-    req_table = db.req_req
-    rim_table = db.req_req_item
-    com_table = db.req_commit
-    cim_table = db.req_commit_item
+    # Use s3db here to trigger lazy model-loading when this endpoint
+    # is reached directly from req/send_commit/<id>
+    req_table = s3db.req_req
+    rim_table = s3db.req_req_item
+    com_table = s3db.req_commit
+    cim_table = s3db.req_commit_item
 
     send_table = s3db.inv_send
     tracktable = s3db.inv_track_item
