@@ -17,6 +17,10 @@
 /static/themes/SHARE/data/*
 /static/data/*/*
 /tests/unit/*.pdf
+/.coverage
+/.coverage.*
+/coverage.xml
+/coverage_html/*
 .DS_Store
 /languages/*.po
 .~lock.*.csv#

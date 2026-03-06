@@ -1,0 +1,31 @@
+[run]
+branch = True
+parallel = True
+source =
+    applications/eden/controllers
+    applications/eden/models
+    applications/eden/modules
+omit =
+    applications/eden/modules/unit_tests/*
+    applications/eden/tests/*
+    applications/eden/static/*
+    applications/eden/docs/*
+    applications/eden/languages/*
+    applications/eden/modules/pygsm/*
+    applications/eden/modules/tropo.py
+    applications/eden/modules/webkit_url2png.py
+
+[report]
+show_missing = True
+skip_covered = False
+omit =
+    applications/eden/modules/pygsm/*
+    applications/eden/modules/tropo.py
+    applications/eden/modules/webkit_url2png.py
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
+    if __name__ == .__main__.:
+
+[html]
+directory = applications/eden/coverage_html
