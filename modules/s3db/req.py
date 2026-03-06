@@ -948,8 +948,8 @@ class RequestModel(DataModel):
                                 readable = not default_type,
                                 writable = not default_type,
                                 ),
-                          req_ref(represent = lambda v, row=None: \
-                                              req_ref_represent(v, show_link=False),
+                          req_ref(represent = lambda v, row=None, show_link=False, pdf=False: \
+                                              req_ref_represent(v, show_link=show_link, pdf=pdf),
                                   readable = use_req_number,
                                   writable = use_req_number,
                                   widget = lambda f, v: \
