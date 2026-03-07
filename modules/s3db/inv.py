@@ -2020,12 +2020,24 @@ $.filterOptionsS3({
         except KeyError:
             # Need to reload the track item
             # Avoid this by adding to extra_fields
-            ttable = current.s3db.inv_inv_item
+            ttable = current.s3db.inv_track_item
             query = (ttable.id == inv_track_item.id)
-            inv_track_item = current.db(query).select(ttable[qfield],
-                                                      limitby = (0, 1),
-                                                      ).first()
-            quantity = inv_track_item[qfield]
+            record = current.db(query).select(ttable[qfield],
+                                              limitby = (0, 1),
+                                              ).first()
+            quantity = None
+            if record:
+                try:
+                    quantity = record[qfield]
+                except KeyError:
+                    pass
+                if quantity is None and hasattr(record, "inv_track_item"):
+                    quantity = record.inv_track_item[qfield]
+                if quantity is None:
+                    quantity = getattr(record, qfield, None)
+
+        if quantity is None:
+            return current.messages["NONE"]
 
         return round(quantity * volume, 3)
 
@@ -2067,12 +2079,24 @@ $.filterOptionsS3({
         except KeyError:
             # Need to reload the track item
             # Avoid this by adding to extra_fields
-            ttable = current.s3db.inv_inv_item
+            ttable = current.s3db.inv_track_item
             query = (ttable.id == inv_track_item.id)
-            inv_track_item = current.db(query).select(ttable[qfield],
-                                                      limitby = (0, 1),
-                                                      ).first()
-            quantity = inv_track_item[qfield]
+            record = current.db(query).select(ttable[qfield],
+                                              limitby = (0, 1),
+                                              ).first()
+            quantity = None
+            if record:
+                try:
+                    quantity = record[qfield]
+                except KeyError:
+                    pass
+                if quantity is None and hasattr(record, "inv_track_item"):
+                    quantity = record.inv_track_item[qfield]
+                if quantity is None:
+                    quantity = getattr(record, qfield, None)
+
+        if quantity is None:
+            return current.messages["NONE"]
 
         return round(quantity * weight, 2)
 
@@ -4096,7 +4120,7 @@ class InventoryAdjustModel(DataModel):
 
         if value is None:
             # We want the word "None" here, not just a bold dash
-            return B(T("None"))
+            return B(current.T("None"))
         else:
             return IS_FLOAT_AMOUNT.represent(value, precision=2)
 
